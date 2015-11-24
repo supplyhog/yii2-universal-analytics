@@ -6,7 +6,7 @@ Forked from [TagPlanet/yii-analytics-ua](https://github.com/TagPlanet/yii-analyt
 Install this extension via [composer](http://getcomposer.org/download). Add this line to your project’s composer.json
 
 ```php
-“ethanfrogers/yii2-universal-analytics” : “dev-master”
+supplyhog/yii2-universal-analytics” : “dev-master”
 ```
 
 ##Setup
@@ -17,7 +17,7 @@ Install this extension via [composer](http://getcomposer.org/download). Add this
 //add this line in config/main-local.php for the appropriate application
 $config[‘components’][] = [
     ‘googleAnalytics’ => [
-        ‘class’ => ‘ethanfrogers\AnalyticsUA\UniversalAnalytics’
+        ‘class’ => supplyhog\AnalyticsUA\UniversalAnalytics’
     ]
 ]
 ```
@@ -30,7 +30,3 @@ Yii::$app->googleAnalytics->render();
 ```
 
 For additional configuration options see [TagPlanet/yii-analytics-ua](https://github.com/TagPlanet/yii-analytics-ua).
-
-
-
-

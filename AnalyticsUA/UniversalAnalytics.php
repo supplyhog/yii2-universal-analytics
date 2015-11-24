@@ -1,11 +1,9 @@
 <?php
 	/**
-	 * Created by PhpStorm.
-	 * User: ethanrogers
-	 * Date: 12/29/14
-	 * Time: 8:39 AM
+	 * Notes:
+	 * Use ec_ to prefix any Enhanced Ecommerce calls
 	 */
-	namespace ethanfrogers\AnalyticsUA;
+	namespace supplyhog\AnalyticsUA;
 
 	use Yii;
 	use yii\base\Component;
@@ -36,6 +34,12 @@
 		 * @var bool
 		 */
 		public $autoPageview = true;
+
+		/**
+		 * Enable Enhanced Ecommerce plugin
+		 * @var bool
+		 */
+		public $enhancedEcommerce = false;
 
 		/**
 		 * Allowable Settings
@@ -110,6 +114,10 @@ EOT;
 					$js .= "ga('create', '{$this->property}');" . PHP_EOL;
 				}
 
+				if($this->enhancedEcommerce) {
+					$js .= "ga('require', 'ec');" . PHP_EOL;
+				}
+
 				// Append a period if we have an identifier (name)
 				$this->name = ($this->name) ? $this->name . '.' : '';
 
@@ -169,12 +177,11 @@ EOT;
 		 */
 		public function __call($method, $args)
 		{
+			// Stupid ecommerce plugin, messing things up
+			if(sub_str($method, 3) === 'ec_') {
+				$method = str_replace('_', ':', $method);
+			}
 			switch ($method) {
-				// Stupid ecommerce plugin, messing things up
-				case 'ecommerce_send':
-				case 'ecommerce_addItem':
-				case 'ecommerce_addTransaction':
-					$method = str_replace('_', ':', $method);
 				case 'send':
 				case 'set':
 				case 'require':

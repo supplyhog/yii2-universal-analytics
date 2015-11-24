@@ -1,9 +1,13 @@
 {
-    "name": "ethanfrogers/yii2-universal-analytics",
+    "name": "supplyhog/yii2-universal-analytics",
     "authors": [
         {
             "name": "Ethan Rogers",
             "email": "ethan@supplyhog.com"
+        },
+        {
+            "name": "Wil Wade",
+            "email": "wil@supplyhog.com"
         }
     ],
     "minimum-stability": "dev",
@@ -13,7 +17,7 @@
     },
     "autoload" : {
         "psr-4" : {
-            "ethanfrogers\\AnalyticsUA\\" : "AnalyticsUA"
+            "supplyhog\\AnalyticsUA\\" : "AnalyticsUA"
         }
     }
 }
