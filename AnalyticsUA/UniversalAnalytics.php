@@ -178,7 +178,7 @@ EOT;
 		public function __call($method, $args)
 		{
 			// Stupid ecommerce plugin, messing things up
-			if(sub_str($method, 3) === 'ec_') {
+			if(substr($method, 3) === 'ec_') {
 				$method = str_replace('_', ':', $method);
 			}
 			switch ($method) {
