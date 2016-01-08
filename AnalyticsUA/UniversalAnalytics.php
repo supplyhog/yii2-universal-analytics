@@ -83,6 +83,12 @@ class UniversalAnalytics extends Component
 	protected $_hasRendered = false;
 
 	/**
+	 * Events get sent after the pageview
+	 * @protected
+	 */
+	protected $_events = [];
+
+	/**
 	 * Render JS
 	 * @return mixed
 	 */
@@ -151,6 +157,11 @@ EOT;
 			$js .= ")" . PHP_EOL;
 		}
 
+		//Events are sent after the pageview
+		foreach ($this->_events as $event) {
+			$js .= "ga('send'" . ', ' . $this->toJs($event) . ")" . PHP_EOL;
+		}
+
 		// Clear our the current data, so we can continue to render new items
 		// .. and not repeat ourselves!
 		$this->_calledData = [];
@@ -184,6 +195,27 @@ EOT;
 			$data['secondary'] = $additionalData;
 		}
 		$this->_ecData[] = $data;
+		return $this;
+	}
+
+	/**
+	 * Send an event hit after the pageview
+	 * @param string $category
+	 * @param string $action
+	 * @param string $label
+	 * @param bool $nonInteraction
+	 * @return $this
+	 */
+	public function event($category, $action, $label = '', $nonInteraction = false)
+	{
+		$event = ['hitType' => 'event', 'eventCategory' => $category, 'eventAction' => $action];
+		if($label !== '') {
+			$event['eventLabel'] = $label;
+		}
+		if($nonInteraction === true) {
+			$event['nonInteraction'] = true;
+		}
+		$this->_events[] = $event;
 		return $this;
 	}
 
@@ -281,3 +313,4 @@ EOT;
 		}
 	}
 }
+
